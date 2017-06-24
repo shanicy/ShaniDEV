@@ -9,41 +9,58 @@ using DAL.Properties;
 
 namespace DAL
 {
+    /// <summary>
+    /// Represents Sql Server DB Access layer
+    /// </summary>
     public class SqlServerDB : IEncodingDB
     {
         #region Ctor
 
         public SqlServerDB()
         {
-            // Validate connection to SQLServer
+            // Get coonection string from config. Decrypt if necessary.
+            // Validate connection
         }
 
         #endregion
 
         #region Methods
 
+        /// <summary>
+        /// Get details of a job
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public JobDetails GetJobDetails(long id)
         {
+            JobDetails jd = null;
+
             try
             {
                 using (var md = new EncodingJobsContext(Settings.Default.ConString))
                 {
-                    var job = md.EncodingJobs.FirstOrDefault(x => x.Id == id);
+                    jd = md.EncodingJobs.FirstOrDefault(x => x.Id == id);
 
-                    if (job != null)
+                    if (jd == null)
                     {
-                        return job;
+                        // TODO: Handle not existing data
                     }
                 }
             }
             catch (Exception ex)
             {
-
+                // Add extra information to the exception. Throw again
+                throw ex;
             }
 
-            return null;
+            return jd;
         }
 
+        /// <summary>
+        /// Insert new job to the DB
+        /// </summary>
+        /// <param name="jd"></param>
+        /// <returns></returns>
         public long InsertJob(JobDetails jd)
         {
             try
@@ -56,12 +73,18 @@ namespace DAL
             }
             catch (Exception ex)
             {
-                return -1;
+                // Add extra information to the exception. Throw again
+                throw ex;
             }
 
             return jd.Id;
         }
 
+        /// <summary>
+        /// Update job status in the DB
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="status"></param>
         public void UpdateStatus(long id, EncodingJobStatus status)
         {
             try
@@ -80,7 +103,8 @@ namespace DAL
             }
             catch (Exception ex)
             {
-
+                // Add extra information to the exception. Throw again
+                throw ex;
             }
         } 
 

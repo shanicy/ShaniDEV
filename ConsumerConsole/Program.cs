@@ -41,12 +41,12 @@ namespace ConsumerConsole
             HandleMessage(e);
         }
 
-        private static void HandleMessage(IdWrapper id)
+        private static void HandleMessage(IdWrapper wid)
         {
-            Console.WriteLine("Got message: {0}", id.ToString());
+            Console.WriteLine("Got message: {0}", wid.ToString());
             try
             {
-                JobDetails j = GetJobDetailsFromDB(id);
+                JobDetails j = s_DAL.GetJobDetails(wid.Id);
 
                 s_Workflow.PostToFlow(j);
             }
@@ -55,11 +55,6 @@ namespace ConsumerConsole
                 // Handle Flow exceptions: State the job as faulted, write to log...
                 // Handle DB exceptions
             }
-        }
-
-        private static JobDetails GetJobDetailsFromDB(IdWrapper msg)
-        {
-            return s_DAL.GetJobDetails(msg.Id);
         }
 
         #endregion

@@ -25,12 +25,19 @@ namespace EncodingWCFService
 
         public EncodingService()
         {
-            // TODO: Dependency injection here. Set RabbitMQPublisher to be choosen as plugin during runtime
-            p = new RabbitMQPublisher();
+            try
+            {
+                // TODO: Dependency injection here. Set RabbitMQPublisher to be choosen as plugin during runtime
+                p = new RabbitMQPublisher();
 
-            p.Initialize();
+                p.Initialize();
 
-            m_DAL = new DAL.DAL();
+                m_DAL = new DAL.DAL();
+            }
+            catch (Exception)
+            {
+                // Handle exception here and log
+            }
         }
 
         #endregion
@@ -39,17 +46,18 @@ namespace EncodingWCFService
 
         public long ProcessJob(JobDetails j)
         {
-            long id = m_DAL.InsertJob(j);  // bla
-
-            if (id != -1)
-                j.Id = id;
-            else
+            long id = -1;
+            try
             {
-                // Error with db
-            }
+                id = m_DAL.InsertJob(j);
 
-            // Add to DB. Let the queue to publish only ID
-            p.Publish(j);
+                // Add to DB. Let the queue to publish only ID
+                p.Publish(j);
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions here and log
+            }
 
             return id;
         } 

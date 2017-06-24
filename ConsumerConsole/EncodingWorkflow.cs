@@ -11,6 +11,9 @@ using System.Threading.Tasks.Dataflow;
 
 namespace ConsumerConsole
 {
+    /// <summary>
+    /// Represents the workflow for encoding job
+    /// </summary>
     public class EncodingWorkflow : IEncodingFlow
     {
         #region Members
@@ -98,7 +101,7 @@ namespace ConsumerConsole
         /// </summary>
         private void SignalCompletedToQueue()
         {
-            // TODO: Implement
+            // TODO: Implement - raise event back to the queue with the relevant id
         }
 
         /// <summary>
@@ -142,9 +145,6 @@ namespace ConsumerConsole
                 try
                 {
                     UploadToFTP(jd);
-
-                    // Because the queue should be durable, a signaling is necessary.
-                    SignalCompletedToQueue();
                 }
                 catch (Exception ex)
                 {
@@ -172,6 +172,12 @@ namespace ConsumerConsole
                     ((IDataflowBlock)ftp).Fault(t.Exception);
                 else
                     ftp.Complete();
+            });
+
+            ftp.Completion.ContinueWith(t =>
+            {
+                // Because the queue should be durable, a signaling is necessary.
+                SignalCompletedToQueue();
             });
         }
 
