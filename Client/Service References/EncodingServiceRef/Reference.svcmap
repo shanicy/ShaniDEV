@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="cc78ebce-35f9-45cc-939d-4a3c5782eb8d" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8733/Design_Time_Addresses/EncodingWCFService/EncodingService/" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="item3.xsd" MetadataType="Schema" ID="132be3ae-0c71-4564-aa46-dccc715eb76a" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/EncodingWCFService/EncodingService/?xsd=xsd0" />
+    <MetadataFile FileName="EncodingService.wsdl" MetadataType="Wsdl" ID="2d22e8d2-deb5-4d61-9904-6fa00e3d1e2e" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/EncodingWCFService/EncodingService/?wsdl" />
+    <MetadataFile FileName="item31.xsd" MetadataType="Schema" ID="8861a1f3-596a-45da-a2ad-5441d3b586d8" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/EncodingWCFService/EncodingService/?xsd=xsd2" />
+    <MetadataFile FileName="item1.disco" MetadataType="Disco" ID="59ffafdc-b03d-441c-876e-66ef97b07f43" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/EncodingWCFService/EncodingService/?disco" />
+    <MetadataFile FileName="item32.xsd" MetadataType="Schema" ID="f46c7cff-555c-43af-995e-99dd0f4b90ec" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/EncodingWCFService/EncodingService/?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
