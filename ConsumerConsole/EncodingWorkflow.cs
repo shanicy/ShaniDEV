@@ -25,7 +25,7 @@ namespace ConsumerConsole
 
         public EncodingWorkflow()
         {
-            m_DAL = new DAL.DAL();
+
         }
 
         #endregion
@@ -61,7 +61,7 @@ namespace ConsumerConsole
             // Update status in the DB 
             m_DAL.UpdateStatus(jd.Id, EncodingJobStatus.Encoding);
 
-            // *** Encode Logic.... Use external FTP dll
+            // *** Encode Logic.... Use external FTP dll - edtftpnet is great
             // Return new path to encoded file
 
             Console.WriteLine("Encoding..." + jd.Id);
@@ -81,7 +81,7 @@ namespace ConsumerConsole
             Console.WriteLine("Uploading..." + jd.Id);
 
             // Get FTP path from the config
-            // *** Upload Logic.... Use external FTP dll
+            // *** Upload To FTP Logic.... Use external FTP dll
 
             // Update DONE status in the DB 
             jd.Status = EncodingJobStatus.Completed;
@@ -106,6 +106,8 @@ namespace ConsumerConsole
         /// </summary>
         public void InitFlow()
         {
+            m_DAL = new DAL.DAL();
+
             // TODO: Move the options into config
             ExecutionDataflowBlockOptions opt = new ExecutionDataflowBlockOptions() { MaxDegreeOfParallelism = 8 };
 

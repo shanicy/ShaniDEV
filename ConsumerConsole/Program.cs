@@ -12,7 +12,7 @@ namespace ConsumerConsole
     {
         #region Members
 
-        private static EncodingWorkflow s_Workflow;
+        private static IEncodingFlow s_Workflow;
 
         private static IJobQueueConsumer s_Consumer;
 
@@ -44,10 +44,17 @@ namespace ConsumerConsole
         private static void HandleMessage(IdWrapper id)
         {
             Console.WriteLine("Got message: {0}", id.ToString());
+            try
+            {
+                JobDetails j = GetJobDetailsFromDB(id);
 
-            JobDetails j = GetJobDetailsFromDB(id);
-
-            s_Workflow.PostToFlow(j);
+                s_Workflow.PostToFlow(j);
+            }
+            catch (Exception ex)
+            {
+                // Handle Flow exceptions: State the job as faulted, write to log...
+                // Handle DB exceptions
+            }
         }
 
         private static JobDetails GetJobDetailsFromDB(IdWrapper msg)

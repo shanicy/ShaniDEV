@@ -14,5 +14,9 @@ namespace Common.Interfaces
         JobDetails Encode(JobDetails jd);
 
         void UploadToFTP(JobDetails jd);
+
+        void InitFlow();
+
+        void PostToFlow(JobDetails jd);
     }
 }
