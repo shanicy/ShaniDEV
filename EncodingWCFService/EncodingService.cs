@@ -39,7 +39,7 @@ namespace EncodingWCFService
 
         public long ProcessJob(JobDetails j)
         {
-            long id = m_DAL.InsertJob(j);
+            long id = m_DAL.InsertJob(j);  // bla
 
             if (id != -1)
                 j.Id = id;

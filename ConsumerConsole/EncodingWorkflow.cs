@@ -25,6 +25,7 @@ namespace ConsumerConsole
 
         public JobDetails Download(JobDetails jd)
         {
+            jd.Status = "Downloading";
             // Update status in the DB 
             m_DAL.UpdateStatus(jd.Id, "Downloading");
 
@@ -34,6 +35,8 @@ namespace ConsumerConsole
             //    client.DownloadFile(jd.Uri, "filename");
             //}
 
+            //jd.LocalDownloadedFile = "";
+
             Console.WriteLine("Downloading" + jd.Id);
 
             return jd;
@@ -41,6 +44,7 @@ namespace ConsumerConsole
 
         public JobDetails Encode(JobDetails jd)
         {
+            jd.Status = "Encoding";
             // Update status in the DB 
             m_DAL.UpdateStatus(jd.Id, "Encoding");
 
@@ -54,15 +58,20 @@ namespace ConsumerConsole
 
         public void UploadToFTP(JobDetails jd)
         {
+            jd.Status = "Uploading to FTP";
+
             // Update status in the DB 
             m_DAL.UpdateStatus(jd.Id, "Uploading to FTP");
 
             Console.WriteLine("Uploading..." + jd.Id);
 
             // *** Upload Logic.... Use external FTP dll
+            // Get FTP path from the config
 
             // Update DONE status in the DB 
             m_DAL.UpdateStatus(jd.Id, "DONE");
+            jd.Status = "DONE";
+
         }
 
         public void PostToFlow(JobDetails j)

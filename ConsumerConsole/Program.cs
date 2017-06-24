@@ -53,7 +53,7 @@ namespace ConsumerConsole
         private static JobDetails GetJobDetailsFromDB(IdWrapper msg)
         {
             return s_DAL.GetJobDetails(msg.Id);
-        } 
+        }
 
         #endregion
     }

@@ -11,43 +11,20 @@ namespace Client
     class Program
     {
         static EncodingServiceClient proxy;
+
         static void Main(string[] args)
         {
             proxy = new EncodingServiceClient();
             proxy.Open();
+            Console.WriteLine("Connected");
 
-            Parallel.For(0, 1, Go);
+            Parallel.For(1, 2, FakeAJob);
 
-            //var input = "";
-            //Console.WriteLine("Enter a message. 'Q' to quit.");
-            //while ((input = Console.ReadLine()) != "Q")
-            //{
-            //    JobDetails j = new JobDetails();
-
-            //    Console.WriteLine("Enter ID");
-            //    j.Id = int.Parse(Console.ReadLine());
-
-            //    Console.WriteLine("Enter resolution H");
-            //    int h = int.Parse(Console.ReadLine());
-            //    Console.WriteLine("Enter resolution W");
-            //    int w = int.Parse(Console.ReadLine());
-
-            //    j.Resolutions.Add(new Resolution(w, h));
-
-            //    j.Status = "Pending";
-
-            //    j.Uri = new Uri("https://" + j.Id + j.Resolutions[0].Width + j.Resolutions[0].Height);
-
-            //    proxy.ProcessJob(j);
-
-            //    Console.WriteLine("Enter a message. 'Q' to quit.");
-
-            //}
-
+            Console.WriteLine("DONE");
             Console.ReadKey();
         }
 
-        private static void Go(int obj)
+        private static void FakeAJob(int obj)
         {
             var j = GetJob();
             j.Status = "Pending";
@@ -55,15 +32,11 @@ namespace Client
 
         }
 
-        private static int counter = 0;
         private static object locker = new object();
 
         private static JobDetails GetJob()
         {
             JobDetails ej = new JobDetails();
-
-            lock(locker)
-                ej.Id = counter++;
 
             ej.Uri = new Uri("http://www.test.com");
             ej.Resolutions.Add(new Resolution(1024, 768));
