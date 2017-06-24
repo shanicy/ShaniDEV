@@ -25,6 +25,8 @@ namespace ConsumerConsole
 
         public JobDetails Download(JobDetails jd)
         {
+            // TODO: Validate status: If already downloaded, continue
+
             jd.Status = "Downloading";
             // Update status in the DB 
             m_DAL.UpdateStatus(jd.Id, "Downloading");
@@ -44,6 +46,8 @@ namespace ConsumerConsole
 
         public JobDetails Encode(JobDetails jd)
         {
+            // TODO: Validate status: If already encoded, continue
+
             jd.Status = "Encoding";
             // Update status in the DB 
             m_DAL.UpdateStatus(jd.Id, "Encoding");
@@ -58,6 +62,8 @@ namespace ConsumerConsole
 
         public void UploadToFTP(JobDetails jd)
         {
+            // TODO: Validate status: If already uploaded, validate, set status to done.
+
             jd.Status = "Uploading to FTP";
 
             // Update status in the DB 

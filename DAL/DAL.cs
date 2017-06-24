@@ -32,14 +32,12 @@ namespace DAL
 
         #endregion
 
-        #region Public Functions
+        #region Functions
 
         public bool Initialize()
         {
             return true;
         }
-
-        #endregion
 
         /// <summary>
         /// Update status in the DB
@@ -70,5 +68,9 @@ namespace DAL
         {
             return m_DB.GetJobDetails(id);
         }
+
+        #endregion
+
+
     }
 }

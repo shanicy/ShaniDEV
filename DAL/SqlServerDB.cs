@@ -11,6 +11,17 @@ namespace DAL
 {
     public class SqlServerDB : IEncodingDB
     {
+        #region Ctor
+
+        public SqlServerDB()
+        {
+            // Validate connection to SQLServer
+        }
+
+        #endregion
+
+        #region Methods
+
         public JobDetails GetJobDetails(long id)
         {
             try
@@ -71,6 +82,8 @@ namespace DAL
             {
 
             }
-        }
+        } 
+
+        #endregion
     }
 }

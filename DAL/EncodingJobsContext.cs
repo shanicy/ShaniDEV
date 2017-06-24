@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
+    /// <summary>
+    /// This is a fake DataContext object. Will be created "Schema first" using visual studio.
+    /// </summary>
     public partial class EncodingJobsContext : DataContext
     {
         #region Public Members
@@ -20,8 +23,6 @@ namespace DAL
 
         public EncodingJobsContext(string connection) : base(connection)
         {
-
-
         } 
 
         #endregion

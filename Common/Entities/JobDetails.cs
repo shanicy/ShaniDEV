@@ -56,6 +56,9 @@ namespace Common.Entities
             }
         }
 
+        /// <summary>
+        /// TODO: Change to enum
+        /// </summary>
         [DataMember]
         public string Status
         {

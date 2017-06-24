@@ -24,6 +24,7 @@ namespace Publisher
         public void Initialize()
         {
             // TODO: Add connection string to the config
+            // TODO: Read about durable queue so the queue will be persisted. If RabbitMQ service dies, the msgs will be written to disk.
             m_Bus = RabbitHutch.CreateBus("host=localhost");
         }
 
