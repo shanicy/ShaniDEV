@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace Common.Interfaces
 {
-    public interface ICanPublish
+    public interface IJobQueueConsumer
     {
-        void Initialize();
-        void Publish(JobDetails j);
+        event EventHandler<IdWrapper> HandleData;
+
+        void Consume();
     }
 }

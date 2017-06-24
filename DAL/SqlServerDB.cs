@@ -62,7 +62,7 @@ namespace DAL
             return jd.Id;
         }
 
-        public void UpdateStatus(long id, string status)
+        public void UpdateStatus(long id, EncodingJobStatus status)
         {
             try
             {

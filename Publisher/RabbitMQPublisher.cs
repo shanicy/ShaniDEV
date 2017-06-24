@@ -12,7 +12,7 @@ namespace Publisher
     /// <summary>
     /// Publisher using RabbitMQ
     /// </summary>
-    public class RabbitMQPublisher : ICanPublish, IDisposable
+    public class RabbitMQPublisher : IJobQueueProducer, IDisposable
     {
         public IBus m_Bus;
 

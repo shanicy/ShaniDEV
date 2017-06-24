@@ -44,7 +44,7 @@ namespace DAL
         /// </summary>
         /// <param name="id"></param>
         /// <param name="status"></param>
-        public void UpdateStatus(long id, string status)
+        public void UpdateStatus(long id, EncodingJobStatus status)
         {
             m_DB.UpdateStatus(id, status);
         }

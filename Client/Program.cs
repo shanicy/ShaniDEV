@@ -27,7 +27,7 @@ namespace Client
         private static void FakeAJob(int obj)
         {
             var j = GetJob();
-            j.Status = "Pending";
+            j.Status = EncodingJobStatus.Pending;
             proxy.ProcessJob(j);
 
         }

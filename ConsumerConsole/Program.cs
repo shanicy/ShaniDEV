@@ -14,7 +14,7 @@ namespace ConsumerConsole
 
         private static EncodingWorkflow s_Workflow;
 
-        private static ICanConsume s_Consumer;
+        private static IJobQueueConsumer s_Consumer;
 
         private static DAL.DAL s_DAL;
 
@@ -29,7 +29,7 @@ namespace ConsumerConsole
 
             s_DAL = new DAL.DAL();
 
-            // TODO: Dependecy Injection - Load plugin using Unity (Who implements ICanConsume)
+            // TODO: Dependecy Injection - Load plugin using Unity (Who implements IJobQueueConsumer)
             s_Consumer = new RabbitMQConsumer();
             s_Consumer.HandleData += Consumer_HandleData;
 

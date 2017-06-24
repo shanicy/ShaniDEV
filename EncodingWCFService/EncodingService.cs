@@ -15,7 +15,7 @@ namespace EncodingWCFService
     {
         #region Members
 
-        private ICanPublish p;
+        private IJobQueueProducer p;
 
         private DAL.DAL m_DAL;
 

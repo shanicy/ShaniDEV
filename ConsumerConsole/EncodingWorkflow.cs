@@ -21,15 +21,24 @@ namespace ConsumerConsole
 
         #endregion
 
+        #region Ctor
+
+        public EncodingWorkflow()
+        {
+            m_DAL = new DAL.DAL();
+        }
+
+        #endregion
+
         #region Methods
 
         public JobDetails Download(JobDetails jd)
         {
             // TODO: Validate status: If already downloaded, continue
 
-            jd.Status = "Downloading";
+            jd.Status = EncodingJobStatus.Downloading;
             // Update status in the DB 
-            m_DAL.UpdateStatus(jd.Id, "Downloading");
+            m_DAL.UpdateStatus(jd.Id, EncodingJobStatus.Downloading);
 
             // *** Download Logic.... 
             //using (var client = new WebClient())
@@ -48,9 +57,9 @@ namespace ConsumerConsole
         {
             // TODO: Validate status: If already encoded, continue
 
-            jd.Status = "Encoding";
+            jd.Status = EncodingJobStatus.Encoding;
             // Update status in the DB 
-            m_DAL.UpdateStatus(jd.Id, "Encoding");
+            m_DAL.UpdateStatus(jd.Id, EncodingJobStatus.Encoding);
 
             // *** Encode Logic.... Use external FTP dll
             // Return new path to encoded file
@@ -64,26 +73,32 @@ namespace ConsumerConsole
         {
             // TODO: Validate status: If already uploaded, validate, set status to done.
 
-            jd.Status = "Uploading to FTP";
+            jd.Status = EncodingJobStatus.Uploading;
 
             // Update status in the DB 
-            m_DAL.UpdateStatus(jd.Id, "Uploading to FTP");
+            m_DAL.UpdateStatus(jd.Id, EncodingJobStatus.Uploading);
 
             Console.WriteLine("Uploading..." + jd.Id);
 
-            // *** Upload Logic.... Use external FTP dll
             // Get FTP path from the config
+            // *** Upload Logic.... Use external FTP dll
 
             // Update DONE status in the DB 
-            m_DAL.UpdateStatus(jd.Id, "DONE");
-            jd.Status = "DONE";
-
+            jd.Status = EncodingJobStatus.Completed;
+            m_DAL.UpdateStatus(jd.Id, EncodingJobStatus.Completed);
         }
 
         public void PostToFlow(JobDetails j)
         {
             download.Post(j);
-            //download.Complete();
+        }
+
+        /// <summary>
+        /// Signals the queue about job completion
+        /// </summary>
+        private void SignalCompletedToQueue()
+        {
+            // TODO: Implement
         }
 
         /// <summary>
@@ -98,30 +113,26 @@ namespace ConsumerConsole
             {
                 try
                 {
-                    Download(jd);
+                    return Download(jd);
                 }
                 catch (Exception ex)
                 {
-                    // TODO: Write to log and error report
+                    // TODO: Write to log and error report. Can use custom excetion too.
                     throw new Exception(string.Format("Error while downloading the file, id: {0}. msg: {1}", jd, ex.Message));
                 }
-
-                return jd;
             }, opt);
 
             var encode = new TransformBlock<JobDetails, JobDetails>(jd =>
             {
                 try
                 {
-                    Encode(jd);
+                    return Encode(jd);
                 }
                 catch (Exception ex)
                 {
-                    // TODO: Write to log and error report
+                    // TODO: Write to log and error report. Can use custom excetion too.
                     throw new Exception(string.Format("Error while encoding the file, id: {0}. msg: {1}", jd, ex.Message));
                 }
-                return jd;
-
             }, opt);
 
             var ftp = new ActionBlock<JobDetails>(jd =>
@@ -129,10 +140,13 @@ namespace ConsumerConsole
                 try
                 {
                     UploadToFTP(jd);
+
+                    // Because the queue should be durable, a signaling is necessary.
+                    SignalCompletedToQueue();
                 }
                 catch (Exception ex)
                 {
-                    // TODO: Write to log and error report
+                    // TODO: Write to log and error report. Can use custom excetion too.
                     throw new Exception(string.Format("Error while uploading to FTP, id: {0}. msg: {1}", jd, ex.Message));
                 }
             }, opt);
@@ -157,15 +171,6 @@ namespace ConsumerConsole
                 else
                     ftp.Complete();
             });
-        }
-
-        #endregion
-
-        #region Ctor
-
-        public EncodingWorkflow()
-        {
-            m_DAL = new DAL.DAL();
         }
 
         #endregion

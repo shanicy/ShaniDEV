@@ -20,7 +20,7 @@ namespace Common.Entities
 
         private Uri m_Uri;
 
-        private string m_Status;
+        private EncodingJobStatus m_Status;
 
         private List<Resolution> m_Resolutions;
 
@@ -60,7 +60,7 @@ namespace Common.Entities
         /// TODO: Change to enum
         /// </summary>
         [DataMember]
-        public string Status
+        public EncodingJobStatus Status
         {
             get
             {

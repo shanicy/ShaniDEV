@@ -12,9 +12,13 @@ namespace ConsumerConsole
     /// <summary>
     /// Represents a RabbitMQConsumer msg consumer
     /// </summary>
-    public class RabbitMQConsumer : ICanConsume
+    public class RabbitMQConsumer : IJobQueueConsumer
     {
+        #region Members
+
         public event EventHandler<IdWrapper> HandleData;
+
+        #endregion
 
         #region Ctor
 

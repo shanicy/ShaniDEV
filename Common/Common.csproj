@@ -48,8 +48,9 @@
     <Compile Include="Entities\JobDetails.cs" />
     <Compile Include="Entities\IdWrapper.cs" />
     <Compile Include="Entities\Resolution.cs" />
-    <Compile Include="Interfaces\ICanConsume.cs" />
-    <Compile Include="Interfaces\ICanPublish.cs" />
+    <Compile Include="Entities\Statuses.cs" />
+    <Compile Include="Interfaces\IJobQueueConsumer.cs" />
+    <Compile Include="Interfaces\IJobQueueProducer.cs" />
     <Compile Include="Interfaces\IEncodingDB.cs" />
     <Compile Include="Interfaces\IEncodingFlow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

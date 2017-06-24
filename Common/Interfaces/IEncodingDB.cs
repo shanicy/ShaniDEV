@@ -9,11 +9,10 @@ namespace Common.Interfaces
 {
     public interface IEncodingDB
     {
-        void UpdateStatus(long id, string status);
+        void UpdateStatus(long id, EncodingJobStatus status);
 
         long InsertJob(JobDetails jd);
 
         JobDetails GetJobDetails(long id);
-
     }
 }
